@@ -53,7 +53,7 @@ public class Main {
             for(int j=0;j<n;j++) {
                 if(arr[i][j][0] == JECHO) {
                     // 제초제의 남은 년수가 0이면 빈 공간으로 바꿔줌
-                    if(--arr[i][j][1] == 0) {
+                    if(arr[i][j][1]-- == 0) {
                         arr[i][j][0] = EMPTY_SPACE;
                     }
                 }
@@ -63,7 +63,7 @@ public class Main {
 
     static void spread() {
         // 1. 나무를 가장 많이 죽일 수 있는 위치를 찾는다.
-        int max = Integer.MIN_VALUE;
+        int max = 0;
         int mr = 0;
         int mc = 0;
         for(int r=0;r<n;r++) {
@@ -74,7 +74,19 @@ public class Main {
 //                System.out.printf("[%d, %d] : %d \n" ,r,c, val);
 //                System.out.println("-------------------------");
 
-                if(val > max) {
+                if (val == max) {
+                    if(r < mr) {
+                        mr = r;
+                        mc = c;
+                    }else if (r == mr) {
+                        if(c < mc) {
+                            mr = r;
+                            mc = c;
+                        }
+                    }
+                    max = val;
+                }
+                else if(val > max) {
                     max = val;
                     mr = r;
                     mc = c;
